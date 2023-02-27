@@ -21,5 +21,6 @@ public class TestMap {
         map.print();
         System.out.println("--------------");
         map1.print();
+        map.clear();
     }
 }

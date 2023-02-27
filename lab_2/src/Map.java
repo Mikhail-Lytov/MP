@@ -21,14 +21,8 @@ public class Map<T extends Comparable<T>> implements Comparable<T> {
     }
 
     public void clear(){
-        if(root.right_descendant != null){
-            clear_element(root.right_descendant);
-        }
-        if (root.left_descendant != null) {
-            clear_element(root.left_descendant);
-        }
         root = null;
-        System.gc();//сборщик мусора
+        System.gc();
     }
     public boolean checking_emptiness(){
         if(root.data.getItem() == null){
@@ -102,16 +96,6 @@ public class Map<T extends Comparable<T>> implements Comparable<T> {
         return search(root,key);
     }
 
-    private void clear_element(Node<T> root){
-        if(root.right_descendant != null){
-            clear_element(root.right_descendant);
-        }
-        if (root.left_descendant != null) {
-            clear_element(root.left_descendant);
-        }
-        root = null;
-
-    }
 
     private void TurnLeft(Node<T> root) { //Левый поворот
         Node<T> leftSubTree, leftSubTreeRightSubtree;
