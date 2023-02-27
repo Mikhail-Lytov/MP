@@ -12,6 +12,14 @@ public class Map<T extends Comparable<T>> implements Comparable<T> {
 
     }
 
+    public Map() {
+    }
+
+
+    public Map(Map copy){
+        Copy(root, copy.root);
+    }
+
     public void clear(){
         if(root.right_descendant != null){
             clear_element(root.right_descendant);
@@ -26,6 +34,26 @@ public class Map<T extends Comparable<T>> implements Comparable<T> {
         if(root.data.getItem() == null){
             return true;//пусто
         }else return false; //не пусто
+    }
+
+    private void Copy(Node<T> root,Node<T> root_copy){
+        if(root_copy != null) {
+            Comparable item = root_copy.data.getItem();
+            root.data.setItem((T) item);
+            Comparable key = root_copy.data.getKey();
+            root.data.setKey((T) key);
+            if (root_copy.left_descendant != null) {
+                Node<T> node = new Node<>();
+                root.left_descendant = node;
+                Copy(node,root_copy.left_descendant);
+
+            }else root.left_descendant = null;
+            if (root_copy.right_descendant != null) {
+                Node<T> node = new Node<>();
+                root.right_descendant = node;
+                Copy(node,root_copy.right_descendant);
+            }else root.right_descendant = null;
+        }
     }
     private Data search_element(Node<T> node, T key) throws DataError{
 

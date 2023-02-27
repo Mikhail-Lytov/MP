@@ -8,9 +8,18 @@ public class TestMap {
         map.add_element(data_1);
         Data data_2 = new Data<>(1,3);
         map.add_element(data_2);
+
+
+
+
+        Map map1 = new Map<>(map);
+
+
         Data data1 = map.search_element(1);
         data1.setItem(10);
 
         map.print();
+        System.out.println("--------------");
+        map1.print();
     }
 }
