@@ -13,7 +13,14 @@ public class MyStack {
     }
 
     public int pop(){
-        return array[top--];
+        if(top - 1 == -1){
+            top = -1;
+            return array[top + 1];
+        }
+        return array[--top];
+    }
+    public int getSize(){
+        return size;
     }
 
     public int peek(){

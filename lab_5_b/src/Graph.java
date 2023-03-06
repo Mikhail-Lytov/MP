@@ -38,7 +38,7 @@ public class Graph {
     }
     public int check(int v){
         for(int i = 0; i < curN;i++){
-            if(mas[i][v] > 0 && vertexList[i].isVisible == false){
+            if(mas[v][i] > 0 && vertexList[i].isVisible == false){
                 return i;
             }
         }

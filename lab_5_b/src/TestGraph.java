@@ -2,7 +2,7 @@ public class TestGraph {
 
     public static void main(String[] args) {
 
-        Graph graph = new Graph();
+   /*     Graph graph = new Graph();
 
         graph.addVertex('A');
         graph.addVertex('B');
@@ -18,7 +18,7 @@ public class TestGraph {
         graph.addEdge('E','F',1);
 
         graph.passInDeep(2);
-
+*/
 
         GraphFunction.Tarina tarina = new GraphFunction.Tarina();
 
@@ -32,11 +32,12 @@ public class TestGraph {
 
         System.out.println("Алгоритм Тарина");
 
-        tarina.addEdge('A','B',1);
+        tarina.addEdge('B','A',1);
         tarina.addEdge('B','C',1);
         tarina.addEdge('C','D',1);
         tarina.addEdge('A','E',1);
         tarina.addEdge('E','F',1);
+        tarina.addEdge('A','B',1);
 
         tarina.sort();
 

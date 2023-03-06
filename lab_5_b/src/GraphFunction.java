@@ -44,10 +44,13 @@ public class GraphFunction  {
                 neigh = check(myStack.peek());
 
 
-                if(neigh == -1){
+                if(neigh == -1 ){
+
                     neigh = myStack.pop();
-                    black[size].setName(white[index].getName());
-                    black[size++].setVisible(true);
+                    if(size < white.length) {
+                        black[size].setName(white[index].getName());
+                        black[size++].setVisible(true);
+                    }
                 }else{
                     if(grew[neigh].isVisible() == true){
                         neigh = myStack.pop();
