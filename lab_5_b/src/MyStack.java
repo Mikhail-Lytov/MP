@@ -7,6 +7,11 @@ public class MyStack {
         array = new int[size];
         top = -1;
     }
+    public MyStack(int size){
+        array = new int[size];
+        this.size = size;
+        top = -1;
+    }
 
     public void push(int v){
         array[++top] = v;

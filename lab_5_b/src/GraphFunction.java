@@ -1,9 +1,15 @@
+import java.util.Arrays;
+
 public class GraphFunction  {
 
     public static class Tarina extends Graph {
         private Vertex[] white;
         private Vertex[] grew;
         private Vertex[] black;
+
+        public Vertex[] getBlack() {
+            return black;
+        }
 
         private int size = 0;
 
@@ -72,5 +78,50 @@ public class GraphFunction  {
         }
     }
 
+    public static class Fleury extends Tarina{
+        private int[] list_transition = new int[maxN];
+        private int[] listWillCome = new int[maxN - 1];
+        public Fleury(){
+            super();
+        }
+        public void printEulerCycle(){
+            super.sort();
+
+            Vertex[] black = super.getBlack();
+            Vertex[] vertices = new Vertex[super.getBlack().length];
+            for(int i = 0; i <vertices.length; i++){
+                vertices[i] = new Vertex(black[black.length - i - 1].getName());
+            }
+            int size_transition = 1;
+            int size_listWillCome = listWillCome.length;
+            list_transition[0] = Arrays.binarySearch(listCur, vertices[0].getName());
+            for(int i = 1; i < vertices.length; i++){
+                listWillCome[i-1] = Arrays.binarySearch(listCur, vertices[i].getName());
+            }
+            System.out.println(Arrays.toString(listWillCome));
+            while (size_listWillCome > 0) {
+                int size = 0;
+                for (int i = 0; i < size_transition; i++) {
+                    for (int j = 0; j < size_listWillCome; j++) {
+                        if (mas[list_transition[i]][listWillCome[j]] != 0) {
+                            size++;
+                        }
+                    }
+                }
+                if (size < 2) { // size < 2
+                    System.out.println(listCur[list_transition[size_transition - 1]] + "->" + listCur[listWillCome[0]] + "-Это мост");
+                }
+                list_transition[size_transition++] = listWillCome[0];
+                listWillCome = Arrays.copyOfRange(listWillCome, 1, listWillCome.length);
+                size_listWillCome--;
+            }
+
+
+        }
+
+
+
+
+    }
 
 }

@@ -5,16 +5,16 @@ public class TestGraph {
    /*     Graph graph = new Graph();
 
         graph.addVertex('A');
-        graph.addVertex('B');
+        graph.addVertex('A');
         graph.addVertex('C');
         graph.addVertex('D');
         graph.addVertex('E');
         graph.addVertex('F');
 
-        graph.addEdge('A','B',1);
-        graph.addEdge('B','C',1);
+        graph.addEdge('A'','A',1);
+        graph.addEdge('A','C',1);
         graph.addEdge('C','D',1);
-        graph.addEdge('A','E',1);
+        graph.addEdge('A'','E',1);
         graph.addEdge('E','F',1);
 
         graph.passInDeep(2);
@@ -23,7 +23,7 @@ public class TestGraph {
         GraphFunction.Tarina tarina = new GraphFunction.Tarina();
 
         tarina.addVertex('A');
-        tarina.addVertex('B');
+        tarina.addVertex('A');
         tarina.addVertex('C');
         tarina.addVertex('D');
         tarina.addVertex('E');
@@ -32,12 +32,12 @@ public class TestGraph {
 
         System.out.println("Алгоритм Тарина");
 
-        tarina.addEdge('B','A',1);
+        tarina.addEdge('A','A',1);
+        tarina.addEdge('A'','C',1);
+        tarina.addEdge('A'','A',1);
         tarina.addEdge('A','C',1);
-        tarina.addEdge('A','B',1);
-        tarina.addEdge('B','C',1);
         tarina.addEdge('C','A',1);
-        tarina.addEdge('C','B',1);
+        tarina.addEdge('C','A',1);
         tarina.addEdge('C','D',1);
         tarina.addEdge('D','C',1);
         tarina.addEdge('D','E',1);
@@ -48,8 +48,8 @@ public class TestGraph {
         tarina.addEdge('E','F',1);
         tarina.addEdge('F','D',1);
         tarina.addEdge('F','E',1);
-        //tarina.addEdge('F','A',1);
-        //tarina.addEdge('A','F',1);
+        tarina.addEdge('F','A',1);
+        tarina.addEdge('A'','F',1);
 
         tarina.sort();
 
@@ -58,19 +58,19 @@ public class TestGraph {
         GraphFunction.Fleury fleury = new GraphFunction.Fleury();
 
         fleury.addVertex('A');
-        fleury.addVertex('B');
+        fleury.addVertex('A');
         fleury.addVertex('C');
         fleury.addVertex('D');
         fleury.addVertex('E');
         fleury.addVertex('F');
 
 
-        fleury.addEdge('B','A',1);
+        fleury.addEdge('A','A',1);
+        fleury.addEdge('A'','C',1);
+        fleury.addEdge('A'','A',1);
         fleury.addEdge('A','C',1);
-        fleury.addEdge('A','B',1);
-        fleury.addEdge('B','C',1);
         fleury.addEdge('C','A',1);
-        fleury.addEdge('C','B',1);
+        fleury.addEdge('C','A',1);
         fleury.addEdge('C','D',1);
         fleury.addEdge('D','C',1);
         fleury.addEdge('D','E',1);
@@ -81,8 +81,8 @@ public class TestGraph {
         fleury.addEdge('E','F',1);
         fleury.addEdge('F','D',1);
         fleury.addEdge('F','E',1);
-        //fleury.addEdge('F','A',1);
-        //fleury.addEdge('A','F',1);
+        fleury.addEdge('F','A',1);
+        fleury.addEdge('A','F',1);
 
         fleury.printEulerCycle();
     }
