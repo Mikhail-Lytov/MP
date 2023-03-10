@@ -85,5 +85,24 @@ public class TestGraph {
         //fleury.addEdge('A','F',1);
 
         fleury.printEulerCycle();
+
+        GraphFunction.Kosaraju kosaraju = new GraphFunction.Kosaraju(5);
+
+        kosaraju.addVertex('A');
+        kosaraju.addVertex('B');
+        kosaraju.addVertex('C');
+        kosaraju.addVertex('D');
+        kosaraju.addVertex('E');
+
+
+        kosaraju.addEdge('A','B',1);
+        kosaraju.addEdge('B','C',1);
+        kosaraju.addEdge('C','D',1);
+        kosaraju.addEdge('D','B',1);
+        kosaraju.addEdge('A','E',1);
+        kosaraju.addEdge('E','D',1);
+
+        kosaraju.passInDeep(0);
+        kosaraju.invertion();
     }
 }

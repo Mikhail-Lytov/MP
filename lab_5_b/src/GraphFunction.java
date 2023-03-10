@@ -118,10 +118,123 @@ public class GraphFunction  {
 
 
         }
-
-
-
-
     }
 
+    public static class Kosaraju extends Graph {
+
+        Kosaraju() {
+            super();
+        }
+
+        Kosaraju(int size) {
+            super(size);
+        }
+
+        public void passInDeep(int index) {
+            int number = 0;
+            System.out.println(vertexList[index].getName());
+            vertexList[index].setVisible(true);
+            vertexList[index].setVertexNumber(number++);
+            myStack.push(index);
+
+            while (!myStack.isEmpty()) {
+                int neigh = check(myStack.peek());
+
+                if (neigh == -1) {
+                    neigh = myStack.pop();
+                    vertexList[neigh].setVertexNumber(number++);
+
+                } else {
+                    System.out.println(vertexList[neigh].getName());
+                    vertexList[neigh].setVisible(true);
+                    vertexList[neigh].setVertexNumber(number++);
+                    myStack.push(neigh);
+                }
+            }
+        }
+
+
+        public void invertion() {
+            Vertex[] vertex_invertion = sort(vertexList);
+            Graph graph = new Graph(maxN);
+            for (int i = 0; i < listCur.length; i++){
+                graph.addVertex(listCur[i]);
+            }
+            for(int i = 0; i < maxN; i++){
+                for (int j = 0; j < maxN; j++){
+                    if(mas[i][j] > 0){
+                        graph.mas[j][i] = mas[i][j];
+                    }
+                }
+            }
+            for (int i = 0; i < vertex_invertion.length; i++){
+                searchEuler(graph, i);
+                System.out.println();
+                //тут что-то лругое
+            }
+        }
+
+        private void searchEuler(Graph graph, int index){
+            int[] listEuler = new int[1];
+            MyStack myStack1 = new MyStack(maxN * maxN);
+            listEuler[0] = index;
+            graph.vertexList[index].setVisible(true);
+            myStack1.push(index);
+            boolean flag = false;
+            while (true){
+                int neigh = graph.check(myStack1.peek());
+
+                if(neigh == -1){
+                    if(myStack1.peek() == listEuler[0] && flag){
+                        printCycle(Arrays.copyOf(listEuler, listEuler.length - 1));
+                        break;
+                    }else if((neigh = graph.check(myStack1.pop())) != -1){
+                        graph.vertexList[myStack1.peek()].setVisible(false);
+                        listEuler = Arrays.copyOf(listEuler, listEuler.length - 1);
+                    }else break;
+                }else {
+                    //добавляем в стек для вывода
+                    flag = true;
+                    listEuler = Arrays.copyOf(listEuler, listEuler.length + 1);
+                    listEuler[listEuler.length - 1] = neigh;
+                    graph.vertexList[neigh].setVisible(true);
+                    myStack1.push(neigh);
+                }
+            }
+            for (int i = 0; i < curN; i++){
+                graph.vertexList[i].setVisible(false);
+            }
+        }
+        private void printCycle(int[] arr){
+            System.out.println("Алгоритм Косарайю");
+            for(int i = 0; i < arr.length; i++){
+                if(i + 1 < arr.length){
+                    System.out.print(listCur[arr[i]] + "->");
+                }else System.out.println(listCur[arr[i]] + " -цикл Эйлера");
+            }
+        }
+
+        private Vertex[] sort(Vertex[] original){
+            Vertex[] arr = new Vertex[vertexList.length];
+            int size = 0;
+            int element_index = 0;
+            Vertex element = new Vertex();
+            while (size < vertexList.length ){
+                for(int i = 0; i < vertexList.length; i++){
+                    if(element.getVertexNumber() < original[i].getVertexNumber()){
+                        element.setVertexNumber(original[i].getVertexNumber());
+                        element.setName(original[i].getName());
+                        element.setVisible(original[i].isVisible());
+                        element_index = i;
+                    }
+                }
+                arr[size++] = element;
+                original[element_index].setVertexNumber(-1);
+                element = new Vertex();
+            }
+
+            return arr;
+        }
+
+    }
 }

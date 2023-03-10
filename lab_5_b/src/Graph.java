@@ -72,10 +72,12 @@ public class Graph {
     public class Vertex {
         private char name;
         private boolean isVisible;
+        private int vertexNumber;
 
         public Vertex(char name) {
             this.name = name;
             this.isVisible = false;
+            this.vertexNumber = -1;
         }
 
         public Vertex() {
@@ -95,6 +97,14 @@ public class Graph {
 
         public void setVisible(boolean visible) {
             isVisible = visible;
+        }
+
+        public int getVertexNumber() {
+            return vertexNumber;
+        }
+
+        public void setVertexNumber(int vertexNumber) {
+            this.vertexNumber = vertexNumber;
         }
 
         public void copy(Vertex original){
