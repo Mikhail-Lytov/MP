@@ -141,5 +141,77 @@ public class GraphFunction {
 
         }
     }
+
+    public static class Prima extends  Graph{
+        private int sum = 0;
+        Prima(){
+            super();
+        }
+        Prima(int SizeGraph){
+            super(SizeGraph);
+        }
+
+
+        public void minPath(int start){
+            int[] arr = new int[maxN];
+            arr = comparison(start);
+            System.out.print(super.listCur[arr[0]]);
+            for(int i = 0; i < arr.length - 1;i++){
+                System.out.print("->" + listCur[arr[i+1]]);
+            }
+            System.out.println(" длина = " + sum );
+        }
+        private int[] comparison(int start){
+            int[] arr = new int[maxN];
+            Arrays.fill(arr,-1);
+            int size = 0;
+            int root = start;
+            int neigh = root;
+            int min_len = 10000000;
+            int sheet = root;
+            boolean flag = false;
+            vertexList[neigh].setVisible(true);
+            arr[size] = neigh;
+            myStack.push(neigh);
+            while (!myStack.isEmpty()){
+                root = sheet;
+                neigh = check(root);
+                if(neigh == -1){
+                    root = myStack.pop();
+                }
+                while ((neigh = check(root)) != -1){
+                    flag = true;
+                    vertexList[neigh].setVisible(true);
+                    if(mas[root][neigh]  < min_len) {
+                        min_len = mas[root][neigh];
+                        sheet = neigh;
+                    }
+
+                }
+                if(flag) {
+                    myStack.push(sheet);
+                    sum += min_len;
+                    min_len = 100000;
+                    flag = false;
+                    arr[++size] = sheet;
+                    for (int i = 0; i < vertexList.length; i++) {
+                        if (!check_arr(arr, i)) {
+                            vertexList[i].setVisible(false);
+                        }
+                    }
+                }
+
+            }
+            return arr;
+        }
+        private boolean check_arr(int[] arr, int value){
+            for(int element : arr){
+                if(element == value){
+                    return true;
+                }
+            }
+            return false;
+        }
+    }
 }
 
