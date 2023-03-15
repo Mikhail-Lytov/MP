@@ -1,4 +1,6 @@
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
 
 public class Graph {
 
@@ -45,10 +47,16 @@ public class Graph {
         }
         return -1;
     }
-    public void passInDeep(int index){
-        System.out.println(vertexList[index].getName());
+    public void deleteEdge(int start, int finish){
+        mas[start][finish] = 0;
+    }
+    public List<Integer> passInDeep(int index){
+        List<Integer> arr = new ArrayList<>();
+        //System.out.println(vertexList[index].getName());
         vertexList[index].isVisible = true;
+        arr.add(index);
         myStack.push(index);
+
 
         while (!myStack.isEmpty()){
             int neigh = check(myStack.peek());
@@ -57,14 +65,16 @@ public class Graph {
                 neigh = myStack.pop();
             }
             else {
-                System.out.println(vertexList[neigh].getName());
+               // System.out.println(vertexList[neigh].getName());
                 vertexList[neigh].isVisible = true;
+                arr.add(neigh);
                 myStack.push(neigh);
             }
         }
         for (int i = 0; i < curN; i++){
-            vertexList[i].isVisible = true;
+            vertexList[i].isVisible = false;
         }
+        return arr;
 
     }
 

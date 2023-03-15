@@ -2,6 +2,23 @@ public class TestGraph {
 
     public static void main(String[] args) {
 
+        GraphFunction.PassInDeep graphPassInDeep = new GraphFunction.PassInDeep(0,6);
+
+        graphPassInDeep.addVertex('A');
+        graphPassInDeep.addVertex('B');
+        graphPassInDeep.addVertex('C');
+        graphPassInDeep.addVertex('D');
+        graphPassInDeep.addVertex('E');
+        graphPassInDeep.addVertex('F');
+
+        graphPassInDeep.addEdge('A', 'B', 1);
+        graphPassInDeep.addEdge('B', 'C', 1);
+        graphPassInDeep.addEdge('C', 'D', 1);
+        graphPassInDeep.addEdge('A', 'E', 1);
+        graphPassInDeep.addEdge('E', 'F', 1);
+
+        graphPassInDeep.passInDeep_(0);
+
         GraphFunction.BFC graph = new GraphFunction.BFC(0,6);
 
         graph.addVertex('A');
@@ -75,6 +92,43 @@ public class TestGraph {
         prima.minPath(4);
 
         //красивыф пример
+
+
+        System.out.println("Краскала");
+
+        GraphFunction.Kraskala kraskala = new GraphFunction.Kraskala(6);
+        kraskala.addVertex('A');
+        kraskala.addVertex('B');
+        kraskala.addVertex('C');
+        kraskala.addVertex('D');
+        kraskala.addVertex('E');
+        kraskala.addVertex('F');
+
+        kraskala.addEdge('A','B',6);
+        kraskala.addEdge('B','A',6);
+        kraskala.addEdge('A','D',5);
+        kraskala.addEdge('D','A',5);
+        kraskala.addEdge('A','C',1);
+        kraskala.addEdge('C','A',1);
+        kraskala.addEdge('B','C',5);
+        kraskala.addEdge('C','B',5);
+        kraskala.addEdge('C','D',5);
+        kraskala.addEdge('D','C',5);
+        kraskala.addEdge('B','E',3);
+        kraskala.addEdge('E','B',3);
+        kraskala.addEdge('C','E',6);
+        kraskala.addEdge('E','C',6);
+        kraskala.addEdge('E','F',6);
+        kraskala.addEdge('F','E',6);
+        kraskala.addEdge('C','F',4);
+        kraskala.addEdge('F','C',4);
+        kraskala.addEdge('D','F',2);
+        kraskala.addEdge('F','D',2);
+
+        kraskala.kraskala();
+
+        System.out.println(kraskala);
+
 
     }
 

@@ -1,4 +1,4 @@
-import java.util.Arrays;
+import java.util.*;
 
 public class GraphFunction {
 
@@ -10,10 +10,10 @@ public class GraphFunction {
 
         PassInDeep(int index, int sizeGraph) {
             super(sizeGraph);
-            passInDeep(index);
+            //passInDeep_(index);
         }
 
-        public void passInDeep(int index) {
+        public void passInDeep_(int index) {
             System.out.println(vertexList[index].getName());
             vertexList[index].setVisible(true);
             myStack.push(index);
@@ -162,7 +162,6 @@ public class GraphFunction {
             System.out.println(" длина = " + sum );
         }
         /*Алгоритм Прима
-        New
         Мы создаем отдельную функцию, куда всегда переходит один стартовый элемент
                 ( то что у нас написано)
         Он возвращает минимум из тех что есть
@@ -226,6 +225,168 @@ public class GraphFunction {
                 }
             }
             return false;
+        }
+    }
+
+    public static class Kraskala extends Graph{
+        private Edge[] edges;
+
+        Kraskala(){
+            super();
+        }
+        Kraskala(int sizeGraph){
+            super(sizeGraph);
+        }
+
+
+
+        public void kraskala() {
+            List<Edge> edges = new ArrayList<>();
+            int[] vertex = new int[maxN];
+            Edge[] arrEdge = new Edge[maxN - 1];
+            int sizeEdge = -1;
+            Arrays.fill(arrEdge,new Edge());
+            Arrays.fill(vertex,-1);
+            int size = 0;
+            int sizeEdgesList = 0;
+            for(int i = 0; i < maxN; i++){
+                for(int j = size; j < maxN; j++){
+                    if(mas[i][j] != 0){
+                        Edge edge = new Edge(i,j,mas[i][j]);
+                        edges.add(edge);
+                    }
+                }
+                size++;
+            }
+            size = -1;
+            Collections.sort(edges);
+            Graph graph = new Graph(maxN);
+            for(int i = 0; i <listCur.length; i++){
+                graph.addVertex(listCur[i]);
+            }
+            while (sizeEdge < maxN - 2){
+                Edge edge = edges.get(sizeEdgesList++);
+                boolean flag_start = check_arr(vertex,edge.start);
+                boolean flag_finish = check_arr(vertex,edge.finish);
+                if(!flag_start && !flag_finish){
+                    vertex[++size] = edge.start;
+                    vertex[++size] = edge.finish;
+                    arrEdge[++sizeEdge] = edge;
+                    edges.remove(--sizeEdgesList);
+                    boolean flag = false;
+                    int descendant = 0;
+                    while (!flag && descendant < edges.size()){
+                        Edge edgeDescendant = edges.get(descendant++);
+                        if(edgeDescendant.start == edge.start || edgeDescendant.start == edge.finish ||
+                                edgeDescendant.finish == edge.finish || edgeDescendant.finish == edge.start){
+                            arrEdge[++sizeEdge] = edgeDescendant;
+                            flag = true;
+                            if(!check_arr(vertex, edgeDescendant.finish)) {
+                                vertex[++size] = edgeDescendant.finish;
+                            }
+                            if(!check_arr(vertex, edgeDescendant.start)) {
+                                vertex[++size] = edgeDescendant.start;
+                            }
+                            edges.remove(--descendant);
+                        }
+
+                    }
+                }else if(!flag_start && flag_finish){
+                    vertex[++size] = edge.start;
+                    arrEdge[++sizeEdge] = edge;
+                    edges.remove(--sizeEdgesList);
+                } else if (flag_start && !flag_finish) {
+                    vertex[++size] = edge.finish;
+                    arrEdge[++sizeEdge] = edge;
+                    edges.remove(--sizeEdgesList);
+                }
+            }
+            this.edges = arrEdge;
+        }
+
+        @Override
+        public String toString() {
+            String line = "";
+            int sum = 0;
+            for(int i = 0; i < edges.length; i++){
+                line += listCur[edges[i].start] + "->" + listCur[edges[i].finish] + " len=" + edges[i].len + "\n";
+                sum += edges[i].len;
+            }
+            line += "sum_len = " + sum;
+            return line;
+        }
+
+        private Edge bridge(Graph graph, List<Edge> edges, int sizeEdges){
+            boolean flag= false;
+            while (!flag){
+                Edge edge = edges.get(sizeEdges++);
+                graph.addEdge(listCur[edge.start],listCur[edge.finish],edge.len);
+                graph.addEdge(listCur[edge.finish],listCur[edge.start],edge.len);
+
+                if(graph.passInDeep(0).size() == maxN){
+                    return edge;
+                }else {
+                    graph.deleteEdge(edge.start,edge.finish);
+                    graph.deleteEdge(edge.finish,edge.start);
+                }
+            }
+            return new Edge();
+        }
+
+        private boolean check_arr(int[] arr, int value){
+            for(int element : arr){
+                if(element == value){
+                    return true;
+                }
+            }
+            return false;
+        }
+
+
+        private class Edge implements Comparable<Edge> {
+            private int start;
+            private int finish;
+            private int len;
+
+            public int getStart() {
+                return start;
+            }
+
+            public void setStart(int start) {
+                this.start = start;
+            }
+
+            public int getFinish() {
+                return finish;
+            }
+
+            public void setFinish(int finish) {
+                this.finish = finish;
+            }
+
+            public int getLen() {
+                return len;
+            }
+
+            public void setLen(int len) {
+                this.len = len;
+            }
+
+            public Edge(){
+                this.start = -1;
+                this.finish = -1;
+                this.len = -1;
+            }
+            public Edge(int start, int finish, int len) {
+                this.start = start;
+                this.finish = finish;
+                this.len = len;
+            }
+
+            @Override
+            public int compareTo(Edge o) {
+                return this.len - o.len;
+            }
         }
     }
 }
