@@ -161,7 +161,74 @@ public class GraphFunction {
             }
             System.out.println(" длина = " + sum );
         }
-        private int[] comparison(int start){
+        /*Алгоритм Прима
+        New
+        Мы создаем отдельную функцию, куда всегда переходит один стартовый элемент
+                ( то что у нас написано)
+        Он возвращает минимум из тех что есть
+        Потом отправляется следующее ребро и оно возражает минимум
+        Если этот минимум меньше, то его берем за лучший исход,
+        После прогонки ставим этот минимум элемент как пройденым и добавляем в массив, вот*/
+
+        private  int[] comparison(int start){ //тут хранится элементы, которые уже точно в списке
+            //потом через  цикл мы отправляем их в функцию, чтобы найти минимальный путь до какой-нибудь вершины
+            int[] arr = new int[maxN];
+            int size = 0; // количество элементов в строке
+            int minFromRoot = 1000000;
+            ModelStep step ;
+            int sheet = 0;
+            int root = -1;
+
+            Arrays.fill(arr,-1);
+            vertexList[size].setVisible(true);
+            arr[size++] = start;
+
+
+            while (size < arr.length){
+                for (int i = 0; i < size; i++){
+                    step = bypass(arr[i]);
+                    if(step.getLen() < minFromRoot){
+                        minFromRoot = step.getLen();
+                        sheet = step.getSheet();
+                        root = i;
+                    }
+                    for (int j = 0; j < vertexList.length; j++) {
+                        if (!check_arr(arr, j)) {
+                            vertexList[j].setVisible(false);
+                        }
+                    }
+                }
+                arr[size++] = sheet;
+                sum += minFromRoot;
+                vertexList[sheet].setVisible(true);
+                minFromRoot = 10000;
+                System.out.println(listCur[arr[root]] + "->" + listCur[arr[size-1]] );
+            }
+            return arr;
+
+        }
+        private ModelStep bypass(int root){
+            int neigh = -2;
+            ModelStep step = new ModelStep(-1,10000);
+            while ((neigh = check(root)) != -1){
+                vertexList[neigh].setVisible(true);
+                if(mas[root][neigh] < step.getLen()){
+                    step.setLen(mas[root][neigh]);
+                    step.setSheet(neigh);
+                }
+            }
+            return step;
+        }
+        private boolean check_arr(int[] arr, int value){
+            for(int element : arr){
+                if(element == value){
+                    return true;
+                }
+            }
+            return false;
+        }
+
+        /*private int[] comparison(int start){
             int[] arr = new int[maxN];
             Arrays.fill(arr,-1);
             int size = 0;
@@ -211,7 +278,7 @@ public class GraphFunction {
                 }
             }
             return false;
-        }
+        }*/
     }
 }
 

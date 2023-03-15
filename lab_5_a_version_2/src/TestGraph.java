@@ -46,6 +46,12 @@ public class TestGraph {
         prima.addVertex('D');
         prima.addVertex('E');
         prima.addVertex('F');
+        //prima.addVertex('G'); для сложного
+        //prima.addVertex('H');
+
+       /* prima.mas = new int[][]{{0, 7, 8, 6, 0, 0, 0, 0}, {7, 0, 2, 0, 11, 0, 0, 0}, {8, 2, 0, 7, 10, 3, 5, 0}, {6, 0, 7, 0, 0, 0, 10, 0}, {0, 11, 10, 0, 0, 6, 0, 19}, {0, 0, 3, 0, 6, 0, 12, 7}, {0, 0, 5, 10, 0, 12, 0, 4}, {0, 0, 0, 0, 19, 7, 4, 0}};
+
+        prima.minPath(0);*/ // - сложный пример(работает)
 
         prima.addEdge('A','B',7);
         prima.addEdge('B','A',7);
@@ -67,6 +73,8 @@ public class TestGraph {
         prima.addEdge('F','D',9);
 
         prima.minPath(4);
+
+        //красивыф пример
 
     }
 
