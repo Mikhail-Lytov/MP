@@ -14,6 +14,7 @@ public class Graph {
     }
     public Graph(int maxN){
         this.maxN = maxN;
+        myStack = new MyStack(maxN);
         initelizetion();
 
     }
