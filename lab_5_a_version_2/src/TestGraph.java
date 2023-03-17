@@ -129,6 +129,42 @@ public class TestGraph {
 
         System.out.println(kraskala);
 
+        System.out.println("Алгоритм Флойда-Уоршела");
+        GraphFunction.FloydWarshell floydWarshell = new GraphFunction.FloydWarshell(8);
+
+        floydWarshell.addVertex('A');
+        floydWarshell.addVertex('B');
+        floydWarshell.addVertex('C');
+        floydWarshell.addVertex('D');
+        floydWarshell.addVertex('E');
+        floydWarshell.addVertex('F');
+        floydWarshell.addVertex('G');
+        floydWarshell.addVertex('H');
+
+        floydWarshell.addEdge('A','B',2);
+        floydWarshell.addEdge('B','A',2);
+        floydWarshell.addEdge('A','D',3);
+        floydWarshell.addEdge('D','A',3);
+        floydWarshell.addEdge('A','H',10);
+        floydWarshell.addEdge('H','A',10);
+        floydWarshell.addEdge('A','E',1);
+        floydWarshell.addEdge('E','A',1);
+        floydWarshell.addEdge('B','C',4);
+        floydWarshell.addEdge('C','B',4);
+        floydWarshell.addEdge('C','H',3);
+        floydWarshell.addEdge('H','C',3);
+        floydWarshell.addEdge('D','H',8);
+        floydWarshell.addEdge('H','D',8);
+        floydWarshell.addEdge('E','F',2);
+        floydWarshell.addEdge('F','E',2);
+        floydWarshell.addEdge('F','G',3);
+        floydWarshell.addEdge('G','F',3);
+        floydWarshell.addEdge('G','H',1);
+        floydWarshell.addEdge('H','G',1);
+
+        floydWarshell.floydWarshell();
+
+
 
     }
 

@@ -389,5 +389,31 @@ public class GraphFunction {
             }
         }
     }
+
+    public static class FloydWarshell extends Graph{
+        FloydWarshell(){
+            super();
+        }
+        FloydWarshell(int SizeGraph){
+            super(SizeGraph);
+        }
+
+        public void floydWarshell(){
+            System.out.println();
+            for(int k=0; k < listCur.length;k++){
+                for(int i = 0; i < listCur.length;i++){
+                    for (int j=0; j<listCur.length;j++){
+                        if(i != j &&((mas[i][k] + mas[k][j] < mas[i][j]) || (mas[i][k] + mas[k][j] > 0 && mas[i][j] == 0))){
+                            mas[i][j] = mas[i][k] + mas[k][j];
+                        }
+                    }
+                }
+            }
+            for(int i =0; i < listCur.length;i++){
+                System.out.println(Arrays.toString(mas[i]));
+            }
+        }
+
+    }
 }
 
