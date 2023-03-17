@@ -2,6 +2,7 @@ public class TestGraph {
 
     public static void main(String[] args) {
 
+        System.out.println("Поиск в глубину\nЭлементы посещения:");
         GraphFunction.PassInDeep graphPassInDeep = new GraphFunction.PassInDeep(0,6);
 
         graphPassInDeep.addVertex('A');
@@ -19,6 +20,7 @@ public class TestGraph {
 
         graphPassInDeep.passInDeep_(0);
 
+        System.out.println("Поиск в ширину\nЭлементы посещения:");
         GraphFunction.BFC graph = new GraphFunction.BFC(0,6);
 
         graph.addVertex('A');
