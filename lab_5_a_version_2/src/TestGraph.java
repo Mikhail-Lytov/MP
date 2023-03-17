@@ -130,7 +130,7 @@ public class TestGraph {
         System.out.println(kraskala);
 
         System.out.println("Алгоритм Флойда-Уоршела");
-        GraphFunction.FloydWarshell floydWarshell = new GraphFunction.FloydWarshell(8);
+        GraphFunction.FloydWarshell floydWarshell = new GraphFunction.FloydWarshell(7);
 
         floydWarshell.addVertex('A');
         floydWarshell.addVertex('B');
@@ -139,28 +139,27 @@ public class TestGraph {
         floydWarshell.addVertex('E');
         floydWarshell.addVertex('F');
         floydWarshell.addVertex('G');
-        floydWarshell.addVertex('H');
 
-        floydWarshell.addEdge('A','B',2);
-        floydWarshell.addEdge('B','A',2);
-        floydWarshell.addEdge('A','D',3);
-        floydWarshell.addEdge('D','A',3);
-        floydWarshell.addEdge('A','H',10);
-        floydWarshell.addEdge('H','A',10);
-        floydWarshell.addEdge('A','E',1);
-        floydWarshell.addEdge('E','A',1);
-        floydWarshell.addEdge('B','C',4);
-        floydWarshell.addEdge('C','B',4);
-        floydWarshell.addEdge('C','H',3);
-        floydWarshell.addEdge('H','C',3);
-        floydWarshell.addEdge('D','H',8);
-        floydWarshell.addEdge('H','D',8);
-        floydWarshell.addEdge('E','F',2);
-        floydWarshell.addEdge('F','E',2);
-        floydWarshell.addEdge('F','G',3);
-        floydWarshell.addEdge('G','F',3);
-        floydWarshell.addEdge('G','H',1);
-        floydWarshell.addEdge('H','G',1);
+        floydWarshell.addEdge('A','B',1);
+        floydWarshell.addEdge('B','A',1);
+        floydWarshell.addEdge('A','C',2);
+        floydWarshell.addEdge('C','A',2);
+        floydWarshell.addEdge('A','D',4);
+        floydWarshell.addEdge('D','A',4);
+        floydWarshell.addEdge('C','D',7);
+        floydWarshell.addEdge('D','C',7);
+        floydWarshell.addEdge('B','D',2);
+        floydWarshell.addEdge('D','B',2);
+        floydWarshell.addEdge('B','E',5);
+        floydWarshell.addEdge('E','B',5);
+        floydWarshell.addEdge('D','E',1);
+        floydWarshell.addEdge('E','D',1);
+        floydWarshell.addEdge('C','F',4);
+        floydWarshell.addEdge('F','C',4);
+        floydWarshell.addEdge('C','G',1);
+        floydWarshell.addEdge('G','C',1);
+        floydWarshell.addEdge('D','G',1);
+        floydWarshell.addEdge('G','D',1);
 
         floydWarshell.floydWarshell();
 

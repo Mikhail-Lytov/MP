@@ -403,7 +403,7 @@ public class GraphFunction {
             for(int k=0; k < listCur.length;k++){
                 for(int i = 0; i < listCur.length;i++){
                     for (int j=0; j<listCur.length;j++){
-                        if(i != j &&((mas[i][k] + mas[k][j] < mas[i][j]) || (mas[i][k] + mas[k][j] > 0 && mas[i][j] == 0))){
+                        if(i != j &&((mas[i][k] + mas[k][j] < mas[i][j]) || (mas[i][k] + mas[k][j] > 0 && mas[i][j] == 0)) && (mas[i][k] > 0 && mas[k][j] > 0)){
                             mas[i][j] = mas[i][k] + mas[k][j];
                         }
                     }
