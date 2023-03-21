@@ -1,6 +1,7 @@
 import java.util.Arrays;
+import java.util.Date;
 
-public class BtreeMap<I,K>  {
+public class BtreeMap<I,K extends Comparable>{
     private int size;
     private Node<I,K> root;
 
@@ -18,9 +19,28 @@ public class BtreeMap<I,K>  {
     }
 
     public void insert(K key,I item){
-         Data data = new Data(key, item);
-       //  insert_element(root,data,1);
+        Data data = new Data(item, key);
+        //  insert_element(root,data,1);
 
+    }
+    private void addElement(Date date, Node root){
+        int i = 1;
+        while (true){
+
+            if(root.descendants.arr[i] == null) {
+                if (root.descendants.top == size) {
+                    //перестройка
+                } else if (root.descendants.top + 1 == size) {
+                    //перестройка
+                } else{
+                    // вставить в эту ячейку
+                }
+            }else if(date.compareTo(root.descendants.arr[i].data) > 0){
+                i++;
+            } else if (date.compareTo(root.descendants.arr[i].data) < 0) {
+
+            }
+        }
     }
 
     @Override
@@ -28,40 +48,53 @@ public class BtreeMap<I,K>  {
         return Arrays.toString(root.descendants.arr);
     }
 
-    /*private void insert_element(Node node, Data data, int i){
-        System.out.println(node.descendants.arr.length);
-        if(node.descendants.arr[i] == null){
-             Node element = new Node(this.size);
-             node.descendants.arr[i] = element;
-             node.descendants.arr[i].data = data;
-         }else {
-             if(i + 1 < size){
-                 insert_element(node, data, i+1);
-             }else{
-                 // пересборка дерева
-             }
-         }
-    }
-*/
 
-    private void turn_right(Node root, int i){ // пересобрать ветку справо, а то есть когда элемент следующий больше
-        Node node = new Node(this.size);
-        int z = 0;
-        for (int j = i; j < size + 2; j ++){
-            node.descendants.arr[z].data = root.descendants.arr[j].data;
-            z += 1;
-            root.descendants.arr[j].data = null;
+    public void addElement(K key,I item){
+        Data data = new Data(item, key);
+        insert(root,data);
+    }
+
+
+    private void insert(Node root, Data data){
+        for(int i = 1; i < size + 1; i++){
+               if(root.descendants.arr[i] == null){
+                   root.descendants.arr[i] = new Node<>(size);
+                   root.descendants.arr[i].data = data;
+                   break;
+               }else if (root.descendants.arr[i].data.getKey().compareTo(data.key) < 0){
+                        if(i+1 == size + 1 ){
+                            insert(root.descendants.arr[size + 1], data);
+                            break;
+                        }
+               }else if (root.descendants.arr[i].data.getKey().compareTo(data.key) > 0){
+                   System.out.println("меньше");
+                   break;
+               }
         }
-        root.descendants.arr[size + 1] = node;
     }
 
-    private void  turn_left()
 
 
 
 
-    class Node<I,K>{
-        Data<I,K> data = new Data<>();
+    private class MyStack{
+        Node[] nodes;
+        int top = -1;
+        MyStack(int size){
+            nodes = new Node[size];
+        }
+        public void push(Node node){
+            nodes[++top] = node;
+        }
+        public Node pull(){
+            return nodes[top];
+        }
+        public Node clone(){
+            return nodes[top--];
+        }
+    }
+    private class Node<I,K extends Comparable>{
+        Data<I,K> data = new Data<I,K>();
         Descendants<I,K> descendants ;
 
         @Override
@@ -73,7 +106,7 @@ public class BtreeMap<I,K>  {
         }
     }
 
-    class Data<I,K>{
+    private class Data<I,K extends Comparable> extends Date {
         private I item;
         private K key;
 
@@ -100,15 +133,31 @@ public class BtreeMap<I,K>  {
         public void setKey(K key) {
             this.key = key;
         }
-    }
-    class Descendants<I,K>  {
-        Node[] arr; // Node[0](ссылка на узел левый); Mode[size+1] ссылка на правый узел
 
-        public Descendants(int size){
-            arr = new Node[size + 2];
+
+        public int compareTo(Data o) {
+            int result = this.key.compareTo((K) o.key);
+            return 0;
         }
 
 
+    }
+    private class Descendants<I,K>  {
+        private Node[] arr; // Node[0](ссылка на узел левый); Mode[size+1] ссылка на правый узел
+        private int top = 1;
+        public Descendants(int size){
+            arr = new Node[size + 2];
+        }
+        public Node element(int i){
+            return arr[i];
+        }
+
+        public int getTop() {
+            return top;
+        }
+        public void setElement(Node node){
+            arr[top++] = node;
+        }
 
         /*
         Node<I,K> leftDescendants;

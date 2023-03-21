@@ -3,8 +3,10 @@ public class TestMap {
 
         BtreeMap btreeMap = new BtreeMap<Character, Integer>(3);
 
-        btreeMap.insert(1,"a");
-        btreeMap.insert(2,"b");
+        btreeMap.addElement(1,2);
+        btreeMap.addElement(2,3);
+        btreeMap.addElement(3,3);
+        btreeMap.addElement(4,3);
 
         System.out.println(btreeMap);
 
