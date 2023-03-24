@@ -1,4 +1,5 @@
 import gc
+import copy
 
 
 class BTreeNode:
@@ -102,6 +103,10 @@ class BTreeMap: # ассациативного массив
     def __del__(self):
         print("Object destroyed")
 
+    def copy(self):
+        btree_map = copy.deepcopy(self)
+        return btree_map
+
 
 btree_map = BTreeMap(2)
 btree_map.set(3, "three")
@@ -112,9 +117,14 @@ btree_map.set(1, "one")
 print(btree_map.get(1))
 print(btree_map.get(2))
 print(btree_map.get(3))
-btree_map.update(2, "FILE")
 print(btree_map.get(2))
 print()
+print("Копирование")
+copy_btree_map = btree_map.copy()
+copy_btree_map.update(2,"FILE")
+print("оригинал: " + btree_map.get(2))
+print("копия: " + copy_btree_map.get(2))
+copy_btree_map.delete_all()
 print("Список пуст? " + str(btree_map.check_emptiness()))
 print("количество объектов до удаления в мусорке")
 print(btree_map.delete_all())
