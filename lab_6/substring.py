@@ -40,60 +40,44 @@ def BoyerMoore(line = "", image = ""):
     return occurrencesList
 
 
-def prefix(line = "", image = ""):
-    image_list = []
-    dict = {}
-    size = 0
-    maxSize = 0
-    for i in image:
-        if dict.get(i) is None:
-            dict[i] = size;
-            image_list.append(i)
-        else:
-            image_list.append(i)
-            left_image = []
-            right_image = []
-            list_image = []
-            size_image = 1;
-            for j in image_list[0:len(image_list) - 1]:
-                left_image.append(j)
-                right_image.insert(0, image_list[len(image_list)-size_image])
-                print(left_image)
-                print(right_image)
-                size_image += 1
-                if(left_image == right_image):
-                    if(len(list_image) == 0):
-                        list_image.append(''.join(left_image))
-                        size = len(left_image)
-                        if size > maxSize: maxSize = size
-                    else:
-                        list_image[0] = ''.join(left_image)
-                        size = len(left_image)
-            if(size != 0):
-                dict[list_image[0]] = size
-            size = 0
-    return maxSize, dict
+# Функция для реализации алгоритма КМП
+def Knuth_Morris_Pratt(text, pattern):
 
-def Knuth_Morris_Pratt(line='', image=''):
-    i = len(image) - 1
-    str_image = ''
-    flag = False
-    maxSize, dict = prefix(line, image)
-    while i < len(line):
-        j = len(image) - 1
-        if(image[j] == line[i] and j > -1):
-            str_image = str(image[j]) + str_image
-            j -= 1
-            i -= 1
-            flag = True
-        elif j == 0:
-            print("шей")
-        elif flag:
-            if(dict.get(str_image) != None):
-                i += dict.get(str_image)
-            else:
-                i += len(image)-1
-        else: i += len(image) - 1
+    list_pattern = []
+    # нету элемента поиска
+    if not pattern:
+        print('пусто')
+        return
+
+    # элемент поиска больше искомого текста
+    if not text or len(pattern) > len(text):
+        print('элемент поиска больше искомого текста')
+        return
+
+    chars = list(pattern)
+
+    # next[i] сохраняет индекс следующего лучшего частичного совпадения
+    next = [0] * (len(pattern) + 1)
+
+    for i in range(1, len(pattern)):
+        j = next[i + 1]
+
+        while j > 0 and chars[j] is not chars[i]:
+            j = next[j]
+
+        if j > 0 or chars[j] == chars[i]:
+            next[i + 1] = j + 1
+
+    j = 0
+    for i in range(len(text)):
+        if j < len(pattern) and text[i] == pattern[j]:
+            j = j + 1
+            if j == len(pattern):
+                list_pattern.append(i - j + 1)
+        elif j > 0:
+            j = next[j]
+            i = i - 1        #, так как `i` будет увеличен на следующей итерации
+    return list_pattern
 
 if __name__ == '__main__':
-    print(Knuth_Morris_Pratt(line="abcabeabcabcabd", image="abcabd"))
+    print(Knuth_Morris_Pratt("ABCABAABCABAC", "CAB"))
