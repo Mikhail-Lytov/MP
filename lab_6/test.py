@@ -14,6 +14,11 @@ def test():
     else:
         print("Knuth_Morris_Pratt: " + str(False))
 
+    dictList = [2]
+    if (substring.Rabin_Carp("aababab", "babab") == dictList):
+        print("Rabin_Carp: " + str(True))
+    else: print("Rabin_Carp: " + str(False))
+
 
 
 

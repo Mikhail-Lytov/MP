@@ -79,5 +79,31 @@ def Knuth_Morris_Pratt(text, pattern):
             i = i - 1        #, так как `i` будет увеличен на следующей итерации
     return list_pattern
 
+def Rabin_Carp(text, image):
+    len_image = len(image)
+    i = 0
+    str_text = ''
+    list_pattern = []
+    while (i < len(image)):
+        str_text += text[i]
+        i += 1
+    while i <= len(text):
+        if(hash(str_text) == hash(image)):
+            j = 0
+            flag= True
+            while(j < len(image)):
+                if(str_text[j] != image[j]):
+                    flag = False
+                else: j += 1
+            if flag:
+                list_pattern.append(i - len(image))
+                if(i < len(text)):
+                    str_text = str_text[1:] + text[i]
+                i += 1
+        else:
+            str_text = str_text[1:] + text[i]
+            i += 1
+    return list_pattern
+
 if __name__ == '__main__':
-    print(Knuth_Morris_Pratt("ABCABAABCABAC", "CAB"))
+    print(Rabin_Carp("aababab", "babab"))
