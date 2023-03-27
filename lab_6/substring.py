@@ -1,3 +1,4 @@
+import collections
 def BoyerMoore(line = "", image = ""):
     remotenessList = []
     dict = {}
@@ -37,5 +38,34 @@ def BoyerMoore(line = "", image = ""):
                 occurrencesList.append(i)
                 i += size + 1
     return occurrencesList
+
+
+def Knuth_Morris_Pratt(line = "", image = ""):
+    image_list = []
+    dict = {}
+    size = 0
+    size_list = []
+    for i in image:
+        if dict.get(i) is None:
+            dict[i] = size;
+            image_list.append(i)
+        else:
+            image_list.append(i)
+            left_image = []
+            right_image = []
+            size_image = 1;
+            for j in image_list[0:len(image_list) - 1]:
+                left_image.append(j)
+                right_image.insert(0, image_list[len(image_list)-size_image])
+                print(left_image)
+                print(right_image)
+                size_image += 1
+                if(left_image == right_image):
+                    size += 1
+            if(size != 0):
+                dict[i] = size
+            size = 0
+    return
+
 if __name__ == '__main__':
-    print(BoyerMoore(line="персональные данные", image="данные"))
+    print(Knuth_Morris_Pratt(line="персональные данные", image="abcabd"))
